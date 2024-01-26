@@ -3,7 +3,7 @@ class Solution {
     ll mod = 1e9+7;
     int recursion(int i, int j, int k, int m, int n, vector<vector<vector<int>>>& dp){
         if(i<0 || i>=m || j<0 || j>=n) return 1;
-        if(k<1) return (i<0 || i>=m || j<0 || j>=n);
+        if(k==0) return 0;
         
         // if(i<0 || i>m-1 || j<0 || j>n-1) return 1;
         if(dp[i][j][k]!=-1) return dp[i][j][k]%mod;
