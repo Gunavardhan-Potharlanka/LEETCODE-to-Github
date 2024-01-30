@@ -1,48 +1,33 @@
 class Solution {
-    int toNum(string s){
-        if(s[0]=='-'){
-            int t=0;
-            for(int i=1;i<s.size();i++) t=t*10+(s[i]-'0');
-            return t*-1;
-        }
-        int t=0;
-        for(int i=0;i<s.size();i++) t=t*10+(s[i]-'0');
-        return t;
+    stack<int> s;
+    pair<int, int>extract(){
+        int a=s.top();
+        s.pop();
+        int b=s.top();
+        s.pop();
+        return {a, b};
     }
 public:
     int evalRPN(vector<string>& tokens) {
         int n=tokens.size();
-        stack<int> s;
         for(int i=0;i<n;i++){
             if(tokens[i]=="+"){
-                int a=s.top();
-                s.pop();
-                int b=s.top();
-                s.pop();
-                s.push(a+b);
+                pair<int, int> p=extract();
+                s.push(p.first+p.second);
             }
             else if(tokens[i]=="-"){
-                int a=s.top();
-                s.pop();
-                int b=s.top();
-                s.pop();
-                s.push(b-a);
+                pair<int, int> p=extract();
+                s.push(p.second-p.first);
             }
             else if(tokens[i]=="*"){
-                int a=s.top();
-                s.pop();
-                int b=s.top();
-                s.pop();
-                s.push(a*b);
+                pair<int, int> p=extract();
+                s.push(p.first*p.second);
             }
             else if(tokens[i]=="/"){
-                int a=s.top();
-                s.pop();
-                int b=s.top();
-                s.pop();
-                s.push(b/a);
+                pair<int, int> p=extract();
+                s.push(p.second/p.first);
             }
-            else s.push(toNum(tokens[i]));
+            else s.push(stoi(tokens[i]));
         }
         return s.top();
     }
