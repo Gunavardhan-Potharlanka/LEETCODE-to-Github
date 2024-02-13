@@ -1,12 +1,11 @@
 class Solution {
-    bool ispali(string s){
-        int n=s.size();
-        for(int i=0;i<(n/2)+1;i++) if(s[i]!=s[n-i-1]) return false;
-        return true;
-    }
 public:
     string firstPalindrome(vector<string>& words) {
-        for(string s:words) if(ispali(s)) return s;
+        for(string s:words){
+            int n=s.size(), flag=1;
+            for(int i=0;i<(n/2)+1;i++) if(s[i]!=s[n-i-1]){flag=0; break;}     
+            if(flag) return s;
+        }
         return "";
     }
 };
