@@ -6,7 +6,7 @@ public:
         for(int i : coins) if(i < amount + 1) dp[i] = 1;
         for(int i = 1 ; i < amount + 1; i++) {
             for(int j : coins) {
-                if((i - j) > 0 && dp[i - j] != -1 && j < (amount + 1)) {
+                if((i - j) > 0 && dp[i - j] != -1) {
                     if(dp[i] == -1) dp[i] = dp[i - j] + 1;
                     else dp[i] = min(dp[i], dp[i - j] + 1);
                 }
