@@ -1,17 +1,17 @@
-#define ll long long
 class Solution {
 public:
-    ll minoperations(ll val, ll n, vector<int>& v, vector<ll>& dp){
-        if(val==0) return 0;
-        if(dp[val]!=-1) return dp[val];
-        ll ans=INT_MAX;
-        for(ll i=0;i<n;i++) if(v[i]<=val) ans=(min(ans, 1+minoperations(val-v[i], n, v, dp)));
-        return dp[val]=ans;
-    }
     int coinChange(vector<int>& coins, int amount) {
-        vector<ll> dp(amount+1, -1);
-        ll ans=minoperations(amount, coins.size(), coins, dp);
-        if(ans==INT_MAX) return -1;
-        return ans;
+        if(amount == 0) return 0;
+        vector<int>  dp(amount + 1, -1);
+        for(int i : coins) if(i < amount + 1) dp[i] = 1;
+        for(int i = 1 ; i < amount + 1; i++) {
+            for(int j : coins) {
+                if((i - j) > 0 && dp[i - j] != -1 && j < (amount + 1)) {
+                    if(dp[i] == -1) dp[i] = dp[i - j] + 1;
+                    else dp[i] = min(dp[i], dp[i - j] + 1);
+                }
+            }
+        }
+        return dp[amount];
     }
 };
