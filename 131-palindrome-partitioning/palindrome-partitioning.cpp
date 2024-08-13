@@ -10,7 +10,6 @@ class Solution {
             return;}
         for(int i = ind ; i < n ; i++) {
             string substring = s.substr(ind, i - ind + 1);
-            cout<<substring<<"\n";
             if(ispalin(substring)) {
                 cur.push_back(substring);
                 recursion(i + 1, n, s, cur, res);
