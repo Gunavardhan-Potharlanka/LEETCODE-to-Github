@@ -1,25 +1,17 @@
 class Solution {
-    public static void dfs(int node, HashSet<Integer> visited, ArrayList<ArrayList<Integer>> adj) {
-        visited.add(node);
-        for(int i : adj.get(node)) if(visited.contains(i) == false) dfs(i, visited, adj);
+    public static void dfs(int node, boolean[] visited, int[][] isConnected) {
+        visited[node] = true;
+        for(int i = 0 ; i < isConnected.length ; i++) {
+            if(isConnected[node][i] == 1 && visited[i] == false) dfs(i, visited, isConnected);}
     }
     public int findCircleNum(int[][] isConnected) {
-        ArrayList<ArrayList<Integer>> adj = new ArrayList<>();
-        HashSet<Integer> visited = new HashSet<>();
+        int n = isConnected.length;
+        boolean[] visited = new boolean[n];
         int ans = 0;
-        for(int i = 0 ; i < isConnected.length ; i++) adj.add(new ArrayList<>());
-        for(int i = 0 ; i < isConnected.length ; i++) {
-            for(int j = 0; j < isConnected[i].length ; j++) {
-                if(i != j && isConnected[i][j] == 1) {
-                    adj.get(i).add(j);
-                    adj.get(j).add(i);
-                }
-            }
-        }
-        for(int i = 0 ; i < isConnected.length ; i++) {
-            if(visited.contains(i) == false) {
+        for(int i = 0 ; i < n ; i++) {
+            if(!visited[i]) {
                 ans++;
-                dfs(i, visited, adj);}
+                dfs(i, visited, isConnected);}
         }
         return ans;
     }
